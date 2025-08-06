@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "erasableSyntaxOnly": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "target": "ESNext"
+  }
+}

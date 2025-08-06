@@ -1,0 +1,30 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.1.3/schema.json",
+  "files": {
+    "includes": ["*.ts"]
+  },
+  "formatter": {
+    "attributePosition": "multiline",
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "useEditorconfig": true
+  },
+  "css": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    },
+    "linter": {
+      "enabled": true
+    },
+    "parser": {
+      "cssModules": true
+    }
+  },
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  }
+}
