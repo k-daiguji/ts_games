@@ -6,7 +6,7 @@
     "node": "22.18.0"
   },
   "scripts": {
-    "build": "rm -rf dist; webpack; cp src/index.html dist;",
+    "build": "rm -rf dist; webpack",
     "check": "biome check --write .",
     "test": "vitest"
   },
