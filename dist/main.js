@@ -1,1 +1,1 @@
-(()=>{"use strict";const e=e=>{const c=document.createElement(e);return document.body.appendChild(c)};e("div").className="checks h-20 w-20",e("div").className="checks2 h-20 w-20"})();
+(()=>{"use strict";const e=e=>{const c=document.createElement(e);return document.body.appendChild(c)};e("div").innerHTML="Hello, World!",e("div").className="checks h-20 w-20",e("div").className="checks2 h-20 w-20"})();
