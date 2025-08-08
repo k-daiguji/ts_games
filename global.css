@@ -1,7 +1,26 @@
+.h-20 {
+  height: 20%;
+}
+
 .h-100 {
   height: 100%;
 }
 
+.w-20 {
+  width: 20%;
+}
+
 .ma-0 {
   margin: 0;
+}
+
+.checks {
+  background-image: conic-gradient(#fbc 90deg, transparent 90deg 180deg, #fbc 180deg 270deg, transparent 270deg);
+  background-size: 40px 40px;
+}
+
+.checks2 {
+  background-image: linear-gradient(45deg, #fbc 25%, transparent 0, 75%, #fbc 0), linear-gradient(45deg, #fbc 25%, transparent 0, 75%, #fbc 0);
+  background-position: 20px 20px, 0 0;
+  background-size: 40px 40px;
 }
