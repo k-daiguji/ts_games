@@ -1,12 +1,10 @@
-import { greet } from "./greet";
+import { dom } from "./dom";
 
-const generateChild = (tagName: keyof HTMLElementTagNameMap) => {
-  const child = document.createElement(tagName);
-  return document.body.appendChild(child);
-};
-const app = generateChild("div");
-app.innerHTML = greet("World");
-const checks1 = generateChild("div");
-checks1.className = "checks h-20 w-20";
-const checks2 = generateChild("div");
-checks2.className = "checks2 h-20 w-20";
+const sizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+const elements = sizes.map(() => {
+  const cells = sizes.map(() =>
+    dom.create("div").setClass("checks", "grid", "w-10"),
+  );
+  return dom.create("div").setClass("d-flex", "h-10").setChildren(cells);
+});
+dom.setChildToElement("root", elements);
