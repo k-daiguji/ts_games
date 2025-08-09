@@ -1,17 +1,25 @@
-.h-20 {
-  height: 20%;
+.h-10 {
+  height: 10%;
 }
 
 .h-100 {
   height: 100%;
 }
 
-.w-20 {
-  width: 20%;
+.w-10 {
+  width: 10%;
 }
 
 .ma-0 {
   margin: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.grid {
+  border: solid;
 }
 
 .checks {
