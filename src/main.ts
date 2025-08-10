@@ -1,10 +1,13 @@
 import { dom } from "./dom";
 
-const sizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-const elements = sizes.map(() => {
-  const cells = sizes.map(() =>
-    dom.create("div").setClass("checks", "grid", "tile"),
-  );
+const map = [
+  [2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2],
+  [1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1],
+  [1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1],
+  [1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1],
+];
+const elements = map.map((row) => {
+  const cells = row.map((i) => dom.create("div").setClass(`tile${i}`, "tile"));
   return dom.create("div").setClass("d-flex").setChildren(cells);
 });
 dom.setChildToElement("root", elements);
