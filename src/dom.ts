@@ -67,7 +67,9 @@ class Element {
    * @return The Element instance for chaining
    */
   public setChildren(children: Element[]): Element {
-    children.forEach((c) => this.element.appendChild(c.element));
+    children.forEach((c) => {
+      this.element.appendChild(c.element);
+    });
     return Element.create(this.element);
   }
 
@@ -78,7 +80,9 @@ class Element {
    * @returns The Element instance for chaining
    */
   public setClass(name: string, ...names: string[]): Element {
-    [name, ...names].forEach((n) => this.element.classList.add(n));
+    [name, ...names].forEach((n) => {
+      this.element.classList.add(n);
+    });
     return Element.create(this.element);
   }
 
