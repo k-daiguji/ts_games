@@ -5,22 +5,25 @@
 }
 
 .tile {
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
 }
 
 .d-flex {
   display: flex;
 }
 
-.tile1 {
-	filter: blur(5px);
-  background-image: conic-gradient(#CC9933 90deg, #FFCC33 90deg 180deg, #CC9933 180deg 270deg, #FFCC33 0);
-  background-size: 20px 20px;
+.color1 {
+  --c1: #cc9933;
+  --c2: #ffcc33;
 }
 
-.tile2 {
-	filter: blur(5px);
-  background-image: conic-gradient(green 90deg, lightgreen 90deg 180deg, darkgreen 180deg 270deg, greenyellow 0);
-  background-size: 20px 20px;
+.color2 {
+  --c1: #90ee90;
+  --c2: #006400;
+}
+
+.tile {
+  background-image: conic-gradient(var(--c1) 90deg, var(--c2) 90deg 180deg, var(--c1) 180deg 270deg, var(--c2) 0);
+  background-size: 5px 5px;
 }
