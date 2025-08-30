@@ -1,29 +1,121 @@
+:root {
+  --earL: black;
+  --earR: black;
+  --eyeL: royalblue;
+  --eyeR: salmon;
+  --face: black;
+  --outline: white;
+  --body: black;
+  --tail: black;
+}
+
 #stage {
   display: grid;
   height: 100%;
+  width: 100%;
   place-content: center;
 }
 
 .tile {
-  height: 60px;
-  width: 60px;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.color1 {
-  --c1: #cc9933;
-  --c2: #ffcc33;
-}
-
-.color2 {
-  --c1: #90ee90;
-  --c2: #006400;
+  height: 10%;
+  width: 10%;
 }
 
 .tile {
   background-image: conic-gradient(var(--c1) 90deg, var(--c2) 90deg 180deg, var(--c1) 180deg 270deg, var(--c2) 0);
   background-size: 5px 5px;
+}
+
+.reverse {
+  transform: scale(-1, 1);
+}
+
+#cat * {
+  position: absolute;
+}
+
+#cat {
+  height: 60px;
+  width: 60px;
+  position: absolute;
+}
+
+.head {
+  height: 50%;
+  width: 70%;
+}
+
+.ear {
+  height: 50%;
+  width: 50%;
+  background: linear-gradient(to right, var(--ear) 50%, pink 50%);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+
+.earL {
+  --ear: var(--earL);
+  left: -10%;
+  transform: rotate(-40deg) scaleX(-1);
+}
+
+.earR {
+  --ear: var(--earR);
+  left: 60%;
+  transform: rotate(30deg);
+}
+
+.face {
+  top: 20%;
+  height: 100%;
+  width: 100%;
+  background: var(--face);
+  border-radius: 50%;
+}
+
+.eyeL,
+.eyeR {
+  top: 25%;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--outline);
+}
+
+.eyeL {
+  background: var(--eyeL);
+  left: 20%;
+}
+
+.eyeR {
+  background: var(--eyeR);
+  left: 60%;
+}
+
+.mouse {
+  top: 60%;
+  left: 50%;
+  height: 4px;
+  width: 4px;
+  border: 1px solid;
+  border-color: var(--outline) var(--outline) transparent transparent;
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+.body {
+  top: 50%;
+  left: 10%;
+  height: 40%;
+  width: 60%;
+  background: var(--body);
+  border-radius: 50px 50px 20px 20px;
+}
+
+.tail {
+  top: 60%;
+  left: 55%;
+  height: 10%;
+  width: 50%;
+  background: var(--tail);
+  border-radius: 0 10px 10px 0;
+  transform: rotate(-45deg);
 }

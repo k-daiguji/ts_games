@@ -1,14 +1,17 @@
-import { dom } from "./dom";
-
-const map = [
-  [2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2],
-  [1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1],
-  [1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1],
-  [1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1],
-  [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1],
-];
-const elements = map.map((row) => {
-  const cells = row.map((i) => dom.create("div").setClass(`color${i}`, "tile"));
-  return dom.create("div").setClass("d-flex").setChildren(cells);
-});
-dom.setChildToElement("stage", elements);
+const stage = document.getElementById("stage");
+const templateCat = document.getElementById("cat");
+if (stage && templateCat) {
+  const cloneCat = templateCat.cloneNode(true);
+  document.body.removeChild(templateCat);
+  [
+    ["0", "40%"],
+    ["40%", "80%"],
+    ["40%", "0"],
+    ["80%", "40%"],
+  ].forEach(([top, left]) => {
+    const cat = cloneCat.cloneNode(true) as HTMLElement;
+    cat.style.top = top;
+    cat.style.left = left;
+    stage.appendChild(cat);
+  });
+}
