@@ -1,5 +1,5 @@
 import { describe, test, vi } from "vitest";
-import { loop } from "../timer";
+import { timer } from "../timer";
 
 describe("loop", () => {
   test.for<[number, number]>([
@@ -12,7 +12,7 @@ describe("loop", () => {
     ([ms, expected], { expect }) => {
       vi.useFakeTimers();
       let counter = 0;
-      loop(() => counter++, 1);
+      timer(() => counter++, 1);
 
       vi.advanceTimersByTime(ms);
 
@@ -25,7 +25,7 @@ describe("loop", () => {
   }) => {
     vi.useFakeTimers();
     let counter = 0;
-    const stop = loop(() => counter++, 1);
+    const stop = timer(() => counter++, 1);
     vi.advanceTimersByTime(10_000);
 
     stop();
@@ -40,9 +40,9 @@ describe("loop", () => {
     }) => {
       vi.useFakeTimers();
       let counter1 = 0;
-      const stop1 = loop(() => counter1++, 1);
+      const stop1 = timer(() => counter1++, 1);
       let counter2 = 0;
-      loop(() => counter2++, 2);
+      timer(() => counter2++, 2);
       vi.advanceTimersByTime(2_000);
 
       stop1();
@@ -58,9 +58,9 @@ describe("loop", () => {
     }) => {
       vi.useFakeTimers();
       let counter1 = 0;
-      loop(() => counter1++, 1);
+      timer(() => counter1++, 1);
       let counter2 = 0;
-      const stop2 = loop(() => counter2++, 2);
+      const stop2 = timer(() => counter2++, 2);
       vi.advanceTimersByTime(2_000);
 
       stop2();
