@@ -10,20 +10,11 @@
 }
 
 #stage {
+  background: lightgreen;
   display: grid;
   height: 100%;
   width: 100%;
   place-content: center;
-}
-
-.tile {
-  height: 10%;
-  width: 10%;
-}
-
-.tile {
-  background-image: conic-gradient(var(--c1) 90deg, var(--c2) 90deg 180deg, var(--c1) 180deg 270deg, var(--c2) 0);
-  background-size: 5px 5px;
 }
 
 .reverse {
@@ -50,18 +41,18 @@
   width: 50%;
   background: linear-gradient(to right, var(--ear) 50%, pink 50%);
   clip-path: polygon(0 100%, 50% 0, 100% 100%);
-}
 
-.earL {
-  --ear: var(--earL);
-  left: -10%;
-  transform: rotate(-40deg) scaleX(-1);
-}
+  &.l {
+    --ear: var(--earL);
+    left: -10%;
+    transform: rotate(-40deg) scaleX(-1);
+  }
 
-.earR {
-  --ear: var(--earR);
-  left: 60%;
-  transform: rotate(30deg);
+  &.r {
+    --ear: var(--earR);
+    left: 60%;
+    transform: rotate(30deg);
+  }
 }
 
 .face {
@@ -72,23 +63,22 @@
   border-radius: 50%;
 }
 
-.eyeL,
-.eyeR {
+.eye {
   top: 25%;
   height: 8px;
   width: 8px;
   border-radius: 50%;
   border: 1px solid var(--outline);
-}
 
-.eyeL {
-  background: var(--eyeL);
-  left: 20%;
-}
+  &.l {
+    background: var(--eyeL);
+    left: 20%;
+  }
 
-.eyeR {
-  background: var(--eyeR);
-  left: 60%;
+  &.r {
+    background: var(--eyeR);
+    left: 60%;
+  }
 }
 
 .mouse {
