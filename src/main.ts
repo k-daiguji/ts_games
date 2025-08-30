@@ -1,6 +1,6 @@
 import "./extensions/array";
 import { random } from "./random";
-import { loop } from "./timer";
+import { timer } from "./timer";
 
 const stage = document.getElementById("stage");
 const templateCat = document.getElementById("cat");
@@ -10,16 +10,14 @@ if (stage && templateCat) {
   const cats = Array.range(3).map(
     () => cloneCat.cloneNode(true) as HTMLElement,
   );
+  const generate = random(90);
+  const setStyle = (cat: HTMLElement) => {
+    cat.style.top = `${generate()}%`;
+    cat.style.left = `${generate()}%`;
+  };
   cats.forEach((cat) => {
+    setStyle(cat);
     stage.appendChild(cat);
   });
-  const generate = random(90);
-  loop(
-    () =>
-      cats.forEach((cat) => {
-        cat.style.top = `${generate()}%`;
-        cat.style.left = `${generate()}%`;
-      }),
-    5,
-  );
+  timer(() => cats.forEach(setStyle), 5);
 }
