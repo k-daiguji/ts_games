@@ -15,9 +15,14 @@ if (stage && templateCat) {
     cat.style.top = `${generate()}%`;
     cat.style.left = `${generate()}%`;
   };
+  const start = () => timer(() => cats.forEach(setStyle), 5);
+  let stop = start();
   cats.forEach((cat) => {
     setStyle(cat);
+    cat.onmouseenter = stop;
+    cat.onmouseleave = () => {
+      stop = start();
+    };
     stage.appendChild(cat);
   });
-  timer(() => cats.forEach(setStyle), 5);
 }
