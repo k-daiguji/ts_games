@@ -11,6 +11,10 @@ export class Age {
     return new Age(0, 0);
   }
 
+  public static fromYear(year: number) {
+    return new Age(year, 0);
+  }
+
   public get text() {
     return this.month < 2
       ? `${this.year}y/o ${this.month}mo.`
