@@ -10,6 +10,14 @@ test("initialize", ({ expect }) => {
   expect(actual).toBe("0y/o 0mo.");
 });
 
+test("fromYear", ({ expect }) => {
+  const age = Age.fromYear(1);
+
+  const actual = age.text;
+
+  expect(actual).toBe("1y/o 0mo.");
+});
+
 test.for<[string, number]>([
   ["0y/o 1mo.", 1],
   ["0y/o 2mos.", 2],
