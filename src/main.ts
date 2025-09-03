@@ -1,5 +1,5 @@
 import "./extensions/array";
-import { random } from "./random";
+import { generate } from "./random";
 import { timer } from "./timer";
 
 const speed = document.getElementById("speed");
@@ -12,10 +12,9 @@ if (speed && date && stage && templateCat) {
   const cats = Array.range(3).map(
     () => cloneCat.cloneNode(true) as HTMLElement,
   );
-  const generate = random(90);
   const setStyle = (cat: HTMLElement) => {
-    cat.style.top = `${generate()}%`;
-    cat.style.left = `${generate()}%`;
+    cat.style.top = `${generate(90)}%`;
+    cat.style.left = `${generate(90)}%`;
   };
   let dateCount = 0;
   date.innerText = dateCount.toString();
