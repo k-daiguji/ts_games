@@ -1,3 +1,1 @@
-export function random(max: number) {
-  return () => Math.floor(Math.random() * max);
-}
+export const generate = (max: number) => Math.floor(Math.random() * max);

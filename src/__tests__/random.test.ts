@@ -1,5 +1,5 @@
 import { test, vi } from "vitest";
-import { random } from "../random";
+import { generate } from "../random";
 
 test.for([
   [50, 0, 0],
@@ -26,10 +26,9 @@ test.for([
 ])(
   "When the maximum value is %s and the random number is %s, the result is %s.",
   ([max, randomNumber, expected], { expect }) => {
-    const generate = random(max);
     vi.spyOn(Math, "random").mockReturnValue(randomNumber);
 
-    const actual = generate();
+    const actual = generate(max);
 
     expect(actual).toBe(expected);
   },
