@@ -1,19 +1,19 @@
 import { describe, test } from "vitest";
 
-import { Age } from "../age";
+import { createAge } from "../age";
 
 test("initialize", ({ expect }) => {
-  const age = Age.initialize();
+  const age = createAge();
 
-  const actual = age.text;
+  const actual = age.toText();
 
   expect(actual).toBe("0y/o 0mo.");
 });
 
 test("fromYear", ({ expect }) => {
-  const age = Age.fromYear(1);
+  const age = createAge({ year: 1 });
 
-  const actual = age.text;
+  const actual = age.toText();
 
   expect(actual).toBe("1y/o 0mo.");
 });
@@ -44,38 +44,40 @@ test.for<[string, number]>([
   ["1y/o 11mos.", 23],
   ["2y/o 0mo.", 24],
 ])("increment(%s)", ([expected, count], { expect }) => {
-  let age = Age.initialize();
+  const age = createAge();
   for (let i = 0; i < count; i++) {
-    age = age.increment();
+    age.increment();
   }
 
-  const actual = age.text;
+  const actual = age.toText();
 
   expect(actual).toBe(expected);
 });
 
 describe("toEqual", () => {
-  test("true(Month: 0)", ({ expect }) => {
-    const age1 = Age.initialize();
-    const age2 = Age.initialize();
+  test.for<[string, boolean, number]>([
+    ["0mo", false, 0],
+    ["1mo", false, 1],
+    ["2mos", false, 2],
+    ["3mos", false, 3],
+    ["4mos", false, 4],
+    ["5mos", false, 5],
+    ["6mos", false, 6],
+    ["7mos", false, 7],
+    ["8mos", false, 8],
+    ["9mos", false, 9],
+    ["10mos", false, 10],
+    ["11mos", false, 11],
+    ["12mos", true, 12],
+  ])("1y/o === %s is %s.", ([, expected, count], { expect }) => {
+    const age1 = createAge({ year: 1 });
+    const age2 = createAge();
+    for (let i = 0; i < count; i++) {
+      age2.increment();
+    }
 
-    const actual = age1.toEqual(age2);
+    const actual = age1.equal(age2);
 
-    expect(actual).toBe(true);
+    expect(actual).toBe(expected);
   });
-
-  test.for(Array.range(12, { start: 1 }))(
-    "false(Month: %s)",
-    (count, { expect }) => {
-      const age1 = Age.initialize();
-      let age2 = Age.initialize();
-      for (let i = 0; i < count; i++) {
-        age2 = age2.increment();
-      }
-
-      const actual = age1.toEqual(age2);
-
-      expect(actual).toBe(false);
-    },
-  );
 });
