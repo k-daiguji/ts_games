@@ -1,4 +1,4 @@
-interface Age {
+export interface Age {
   id: "age";
   equal: (target: Age) => boolean;
   increment: () => void;
