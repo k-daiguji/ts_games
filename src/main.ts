@@ -1,6 +1,7 @@
 import "./extensions/array";
 import { generate } from "./random";
-import { timer } from "./timer";
+import type { Resume } from "./timer";
+import { start } from "./timer";
 
 const speed = document.getElementById("speed");
 const date = document.getElementById("date");
@@ -18,24 +19,23 @@ if (speed && date && stage && templateCat) {
   };
   let dateCount = 0;
   date.innerText = dateCount.toString();
-  let delay = 1;
-  const start = () =>
-    timer(() => {
-      date.innerText = (++dateCount).toString();
-      cats.forEach(setStyle);
-    }, delay);
-  let stop = start();
+  const interval = () => {
+    date.innerText = (++dateCount).toString();
+    cats.forEach(setStyle);
+  };
+  let timer = start(interval, 1);
   cats.forEach((cat) => {
     setStyle(cat);
-    cat.onmouseenter = () => stop();
+    let resume: Resume;
+    cat.onmouseenter = () => {
+      resume = timer.pause();
+    };
     cat.onmouseleave = () => {
-      stop = start();
+      timer = resume();
     };
     stage.appendChild(cat);
   });
   speed.oninput = (e) => {
-    stop();
-    delay = 1 / Number((e.target as HTMLInputElement).value);
-    stop = start();
+    timer = timer.shift(1 / Number((e.target as HTMLInputElement).value));
   };
 }
