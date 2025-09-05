@@ -1,4 +1,5 @@
 import { test, vi } from "vitest";
+
 import { generate } from "../random";
 
 test.for([
