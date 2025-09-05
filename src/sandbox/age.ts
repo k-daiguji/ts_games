@@ -1,14 +1,11 @@
+import { roundUp } from "../utilities/math";
+
 export interface Age {
   id: "age";
   equal: (target: Age) => boolean;
   increment: () => void;
   toText: () => string;
 }
-
-const roundUp = (value: number, devisor: number) => ({
-  quotient: Math.floor(value / devisor),
-  remainder: value % devisor,
-});
 
 export const createAge = (option?: { year?: number; month?: number }): Age => {
   let { year = 0, month = 0 } = option ?? { year: 0, month: 0 };

@@ -1,6 +1,6 @@
 import { beforeEach, test, vi } from "vitest";
 
-import type { Age } from "../../age";
+import type { Age } from "../age";
 import { createCat } from "../cat";
 
 let age = 0;
