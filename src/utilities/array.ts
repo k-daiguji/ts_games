@@ -1,12 +1,7 @@
-export {};
-
-declare global {
-  interface ArrayConstructor {
-    range(stop: number, option?: { start?: number; step?: number }): number[];
-  }
-}
-
-Array.range = (stop: number, option: { start?: number; step?: number }) => {
+export const range = (
+  stop: number,
+  option?: { start?: number; step?: number },
+) => {
   const { start = 0, step = 1 } = option ?? { start: 0, step: 1 };
   const inverseStep = 1 / step;
   return Array.from(

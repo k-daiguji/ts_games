@@ -1,7 +1,7 @@
-import "./extensions/array";
-import { generate } from "./random";
-import type { Resume } from "./timer";
-import { start } from "./timer";
+import { range } from "./utilities/array";
+import { generate } from "./utilities/random";
+import type { Resume } from "./utilities/timer";
+import { start } from "./utilities/timer";
 
 const speed = document.getElementById("speed");
 const date = document.getElementById("date");
@@ -10,9 +10,7 @@ const templateCat = document.getElementById("cat");
 if (speed && date && stage && templateCat) {
   const cloneCat = templateCat.cloneNode(true);
   document.body.removeChild(templateCat);
-  const cats = Array.range(3).map(
-    () => cloneCat.cloneNode(true) as HTMLElement,
-  );
+  const cats = range(3).map(() => cloneCat.cloneNode(true) as HTMLElement);
   const setStyle = (cat: HTMLElement) => {
     cat.style.top = `${generate(90)}%`;
     cat.style.left = `${generate(90)}%`;

@@ -1,4 +1,4 @@
-import type { Age } from "../age";
+import type { Age } from "./age";
 
 export const createCat = (sex: boolean, age: Age) => ({
   age: age.toText,
