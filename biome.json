@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "includes": ["**/*.ts"]
   },
@@ -8,6 +8,38 @@
     "formatWithErrors": true,
     "indentStyle": "space",
     "useEditorconfig": true
+  },
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noExcessiveCognitiveComplexity": {
+          "level": "error",
+          "options": {
+            "maxAllowedComplexity": 5
+          }
+        },
+        "noUselessStringConcat": "error",
+        "noVoid": "error",
+        "useSimplifiedLogicExpression": "error",
+        "useWhile": "error"
+      },
+      "correctness": {
+        "noGlobalDirnameFilename": "error",
+        "noNodejsModules": "error",
+        "noPrivateImports": "error",
+        "noUndeclaredDependencies": "error",
+        "noUndeclaredVariables": "error",
+        "useJsonImportAttributes": "error",
+        "useSingleJsDocAsterisk": "error"
+      },
+      "performance": {
+        "noAwaitInLoops": "error",
+        "noBarrelFile": "error",
+        "noDelete": "error",
+        "noNamespaceImport": "error",
+        "useTopLevelRegex": "error"
+      }
+    }
   },
   "css": {
     "formatter": {

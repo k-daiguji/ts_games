@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, test, vi } from "vitest";
+
 import { start } from "../timer";
 
 beforeEach(vi.useFakeTimers);
