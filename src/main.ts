@@ -1,39 +1,37 @@
+import { cache, findElement } from "./sandbox/dom";
 import { range } from "./utilities/array";
 import { generate } from "./utilities/random";
 import type { Resume } from "./utilities/timer";
 import { start } from "./utilities/timer";
 
-const speed = document.getElementById("speed");
-const date = document.getElementById("date");
-const stage = document.getElementById("stage");
-const templateCat = document.getElementById("cat");
-if (speed && date && stage && templateCat) {
-  const cloneCat = templateCat.cloneNode(true);
-  document.body.removeChild(templateCat);
-  const cats = range(3).map(() => cloneCat.cloneNode(true) as HTMLElement);
-  const setStyle = (cat: HTMLElement) => {
-    cat.style.top = `${generate(90)}%`;
-    cat.style.left = `${generate(90)}%`;
-  };
-  let dateCount = 0;
-  date.innerText = dateCount.toString();
-  const interval = () => {
-    date.innerText = (++dateCount).toString();
-    cats.forEach(setStyle);
-  };
-  let timer = start(interval, 1);
+let dateCount = 0;
+const date = findElement("#date").setText("0");
+const cacheCat = cache("#cat");
+let resume: Resume;
+const mouseenter = () => {
+  resume = timer.pause();
+};
+const mouseleave = () => {
+  timer = resume();
+};
+const cats = range(3).map(() => {
+  return cacheCat.copy().addEvents([
+    ["mouseenter", mouseenter],
+    ["mouseleave", mouseleave],
+  ]);
+});
+findElement("#stage").setChildren(cats);
+const interval = () => {
+  date.setText((++dateCount).toString());
   cats.forEach((cat) => {
-    setStyle(cat);
-    let resume: Resume;
-    cat.onmouseenter = () => {
-      resume = timer.pause();
-    };
-    cat.onmouseleave = () => {
-      timer = resume();
-    };
-    stage.appendChild(cat);
+    cat.setStyles([
+      ["top", `${generate(90)}%`],
+      ["left", `${generate(90)}%`],
+    ]);
   });
-  speed.oninput = (e) => {
-    timer = timer.shift(1 / Number((e.target as HTMLInputElement).value));
-  };
-}
+};
+let timer = start(interval, 1);
+const input = (e: Event) => {
+  timer = timer.shift(1 / Number((e.target as HTMLInputElement).value));
+};
+findElement("#speed").addEvents([["input", input]]);
