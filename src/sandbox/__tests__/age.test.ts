@@ -1,19 +1,20 @@
 import { describe, test } from "vitest";
 
-import { createAge } from "../age";
+import { range } from "../../utilities/array";
+import { toAge } from "../age";
 
 test("initialize", ({ expect }) => {
-  const age = createAge();
+  const age = toAge();
 
-  const actual = age.toText();
+  const actual = age.text;
 
   expect(actual).toBe("0y/o 0mo.");
 });
 
 test("fromYear", ({ expect }) => {
-  const age = createAge({ year: 1 });
+  const age = toAge(1);
 
-  const actual = age.toText();
+  const actual = age.text;
 
   expect(actual).toBe("1y/o 0mo.");
 });
@@ -44,12 +45,12 @@ test.for<[string, number]>([
   ["1y/o 11mos.", 23],
   ["2y/o 0mo.", 24],
 ])("increment(%s)", ([expected, count], { expect }) => {
-  const age = createAge();
-  for (let i = 0; i < count; i++) {
-    age.increment();
-  }
+  const age = range(count, { start: 1 }).reduce(
+    (age) => age.increment(),
+    toAge(),
+  );
 
-  const actual = age.toText();
+  const actual = age.text;
 
   expect(actual).toBe(expected);
 });
@@ -70,11 +71,11 @@ describe("toEqual", () => {
     ["11mos", false, 11],
     ["12mos", true, 12],
   ])("1y/o === %s is %s.", ([, expected, count], { expect }) => {
-    const age1 = createAge({ year: 1 });
-    const age2 = createAge();
-    for (let i = 0; i < count; i++) {
-      age2.increment();
-    }
+    const age1 = toAge(1);
+    const age2 = range(count, { start: 1 }).reduce(
+      (age) => age.increment(),
+      toAge(),
+    );
 
     const actual = age1.equal(age2);
 

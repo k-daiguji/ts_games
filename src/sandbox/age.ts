@@ -2,26 +2,21 @@ import { roundUp } from "../utilities/math";
 
 export interface Age {
   id: "age";
-  equal: (target: Age) => boolean;
-  increment: () => void;
-  toText: () => string;
+  text: string;
+  equal: (other: Age) => boolean;
+  increment: () => Age;
 }
 
-export const createAge = (option?: { year?: number; month?: number }): Age => {
-  let { year = 0, month = 0 } = option ?? { year: 0, month: 0 };
+export const toAge = (year = 0, month = 0): Age => {
   const { quotient, remainder } = roundUp(month, 12);
-  year = year + quotient;
-  month = remainder;
-  const toText = () =>
-    month < 2 ? `${year}y/o ${month}mo.` : `${year}y/o ${month}mos.`;
+  const text = toText(year + quotient, remainder);
   return {
     id: "age",
-    equal: (target: Age) => target.toText() === toText(),
-    increment: () => {
-      const { quotient, remainder } = roundUp(month + 1, 12);
-      year = year + quotient;
-      month = remainder;
-    },
-    toText,
+    text,
+    equal: (other: Age) => text === other.text,
+    increment: () => toAge(year + quotient, remainder + 1),
   };
 };
+
+const toText = (year: number, month: number) =>
+  month < 2 ? `${year}y/o ${month}mo.` : `${year}y/o ${month}mos.`;
