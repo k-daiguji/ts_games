@@ -1,23 +1,3 @@
-export type Resume = () => Timer;
+type Func = () => void;
 
-interface Timer {
-  clear: () => void;
-  pause: () => Resume;
-  shift: (sec: number) => Timer;
-}
-
-export const start = (func: () => void, sec: number): Timer => {
-  const timeout = setInterval(func, sec * 1000);
-  const clear = () => clearInterval(timeout);
-  return {
-    clear,
-    pause: () => {
-      clear();
-      return () => start(func, sec);
-    },
-    shift: (sec: number) => {
-      clear();
-      return start(func, sec);
-    },
-  };
-};
+export const start = (func: Func, sec: number) => setTimeout(func, sec * 1000);
