@@ -3,16 +3,25 @@ const doc = document;
 const removeElement = (element: globalThis.Element) =>
   doc.body.removeChild(element);
 
-const clone = (element: Element | null) => element?.cloneNode(true);
+const clone = (element: Element | null) =>
+  element?.cloneNode(true) as HTMLElement;
 
 export const find = (key: string) => doc.querySelector(key);
 
-export const appendChildren = (key: string, children: (Node | undefined)[]) => {
-  children
-    .filter((child) => !!child)
-    .forEach((child) => {
-      find(key)?.appendChild(child);
+const appendChildren = (parent: Element, children: Node[]) => {
+  children.forEach((child) => {
+    parent.appendChild(child);
+  });
+};
+
+export const overwrite = (key: string, children: Node[]) => {
+  const parent = find(key);
+  if (parent) {
+    parent.childNodes.forEach((child) => {
+      parent.removeChild(child);
     });
+    appendChildren(parent, children);
+  }
 };
 
 export const cache = (key: string) => {
