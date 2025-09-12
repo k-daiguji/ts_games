@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, test } from "vitest";
 
 import { range } from "../array";
-import { appendChildren, cache, find } from "../dom";
+import { cache, find, overwrite } from "../dom";
 
 const root = document.createElement("div");
 root.id = "root";
@@ -24,7 +24,7 @@ test("Appended elements for ID.", ({ expect }) => {
     return dummy;
   });
 
-  appendChildren("#root", [undefined, ...children]);
+  overwrite("#root", children);
 
   expect(document.body.innerHTML).toBe(
     '<div id="root"><div id="dummy1"></div><div id="dummy2"></div></div>',
