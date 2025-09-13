@@ -39,6 +39,14 @@
   height: 60px;
   width: 60px;
   position: absolute;
+
+  &.adult {
+    transform: scale(0.8);
+  }
+
+  &:not(.adult) {
+    transform: scale(0.5);
+  }
 }
 
 .head {
