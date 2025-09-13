@@ -1,13 +1,18 @@
 import type { Age } from "./sandbox/age";
 import { toAge } from "./sandbox/age";
-import { range } from "./utilities/array";
+import type { Sex } from "./sandbox/sex";
+import { initialize } from "./sandbox/sex";
 import { cache, find, overwrite } from "./utilities/dom";
 import { generate } from "./utilities/random";
 import { start } from "./utilities/timer";
 
 const month = find("#month") as Element;
 const cloneCat = cache("#cat");
-const createCat = () => ({ age: toAge(), element: cloneCat() });
+const createCat = (sex: Sex) => ({
+  age: toAge(),
+  element: cloneCat(),
+  sex,
+});
 const adultAge = toAge(1);
 const lifespan = toAge(15);
 const main = (cats: { age: Age; element: HTMLElement }[]) => {
@@ -24,8 +29,8 @@ const main = (cats: { age: Age; element: HTMLElement }[]) => {
   );
   month.innerHTML = String(Number(month.innerHTML) + 1);
   start(
-    () => main([...aliveCats, createCat()]),
+    () => main([...aliveCats, createCat(initialize(true))]),
     1 / Number((find("#speed") as HTMLInputElement).value),
   );
 };
-main(range(3).map(createCat));
+main([true, true, false, false].map((value) => createCat(initialize(value))));
