@@ -9,6 +9,7 @@ const month = find("#month") as Element;
 const cloneCat = cache("#cat");
 const createCat = () => ({ age: toAge(), element: cloneCat() });
 const adultAge = toAge(1);
+const lifespan = toAge(15);
 const main = (cats: { age: Age; element: HTMLElement }[]) => {
   cats.forEach((cat) => {
     cat.age = cat.age.increment();
@@ -16,13 +17,14 @@ const main = (cats: { age: Age; element: HTMLElement }[]) => {
     cat.element.style.top = `${generate(100)}%`;
     cat.element.style.left = `${generate(100)}%`;
   });
+  const aliveCats = cats.filter((cat) => !lifespan.equal(cat.age));
   overwrite(
     "#eden",
-    cats.map((cat) => cat.element),
+    aliveCats.map((cat) => cat.element),
   );
   month.innerHTML = String(Number(month.innerHTML) + 1);
   start(
-    () => main([...cats, createCat()]),
+    () => main([...aliveCats, createCat()]),
     1 / Number((find("#speed") as HTMLInputElement).value),
   );
 };
