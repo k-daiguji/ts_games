@@ -26,17 +26,21 @@ const cloneCat = cache("#cat");
 let isNext = true;
 const createCat = (sex: Sex) => {
   const element = cloneCat();
-  element.onmouseover = () => {
+  element.addEventListener("dragstart", () => {
     isNext = false;
-  };
-  element.onmouseleave = () => {
+  });
+  element.addEventListener("dragend", (e) => {
     isNext = true;
-  };
+    (e.target as HTMLElement).style.top = `${e.y - 72}px`;
+    (e.target as HTMLElement).style.left = `${e.x - 24}px`;
+  });
   return { age: toAge(), element, sex, coolTime: 12, top: 0, left: 0 };
 };
 const adultAge = toAge(1);
 const lifespan = toAge(10);
-const main = (cats: Cat[]) => (isNext ? update(cats) : next(cats));
+const main = (cats: Cat[]) => {
+  isNext ? update(cats) : next(cats);
+};
 const speed = find("#speed") as HTMLInputElement;
 const next = (cats: Cat[]) => start(() => main(cats), 5 / Number(speed.value));
 const update = (cats: Cat[]) => {
