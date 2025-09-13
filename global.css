@@ -1,15 +1,6 @@
 @import "styles/display.css";
 
 :root {
-  --earL: black;
-  --earR: black;
-  --eyeL: royalblue;
-  --eyeR: salmon;
-  --face: black;
-  --outline: white;
-  --body: black;
-  --tail: black;
-
   background: lightgreen;
   height: 100%;
   width: 100%;
@@ -49,7 +40,7 @@
   }
 
   &:not(.adult) {
-    transform: scale(0.5);
+    transform: scale(0.6);
   }
 
   &:active {
@@ -65,17 +56,15 @@
 .ear {
   height: 50%;
   width: 50%;
-  background: linear-gradient(to right, var(--ear) 50%, pink 50%);
+  background: linear-gradient(to right, var(--secondary) 50%, pink 50%);
   clip-path: polygon(0 100%, 50% 0, 100% 100%);
 
   &.l {
-    --ear: var(--earL);
     left: -10%;
     transform: rotate(-40deg) scaleX(-1);
   }
 
   &.r {
-    --ear: var(--earR);
     left: 60%;
     transform: rotate(30deg);
   }
@@ -85,7 +74,7 @@
   top: 20%;
   height: 100%;
   width: 100%;
-  background: var(--face);
+  background: var(--primary);
   border-radius: 50%;
 }
 
@@ -94,15 +83,15 @@
   height: 8px;
   width: 8px;
   border-radius: 50%;
-  border: 1px solid var(--outline);
+  border: 1px solid white;
 
   &.l {
-    background: var(--eyeL);
+    background: var(--secondary);
     left: 20%;
   }
 
   &.r {
-    background: var(--eyeR);
+    background: var(--third);
     left: 60%;
   }
 }
@@ -113,7 +102,7 @@
   height: 4px;
   width: 4px;
   border: 1px solid;
-  border-color: var(--outline) var(--outline) transparent transparent;
+  border-color: white white transparent transparent;
   transform: translateX(-50%) rotate(-45deg);
 }
 
@@ -122,7 +111,7 @@
   left: 10%;
   height: 40%;
   width: 60%;
-  background: var(--body);
+  background: var(--secondary);
   border-radius: 50px 50px 20px 20px;
 }
 
@@ -131,7 +120,7 @@
   left: 55%;
   height: 10%;
   width: 50%;
-  background: var(--tail);
+  background: var(--third);
   border-radius: 0 10px 10px 0;
   transform: rotate(-45deg);
 }

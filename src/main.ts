@@ -32,6 +32,13 @@ const judge = (a: { element: HTMLElement }, b: { element: HTMLElement }) => {
 };
 const month = find("#month") as Element;
 const cloneCat = cache("#cat");
+const eyeColors = [
+  "#000",
+  "darkslateblue",
+  "palevioletred",
+  "brown",
+  "darkgoldenrod",
+];
 let isNext = true;
 let id: NodeJS.Timeout | undefined;
 const createCat = (sex: Sex) => {
@@ -54,6 +61,12 @@ const createCat = (sex: Sex) => {
     const left = clamp(((e.x - 24) / offsetWidth) * 100, 100, 0);
     (e.target as HTMLElement).style.left = `${left}%`;
   });
+  element.style.setProperty("--primary", eyeColors[generate(eyeColors.length)]);
+  element.style.setProperty(
+    "--secondary",
+    eyeColors[generate(eyeColors.length)],
+  );
+  element.style.setProperty("--third", eyeColors[generate(eyeColors.length)]);
   return { age: toAge(), element, sex, coolTime: 12, top: 0, left: 0 };
 };
 const adultAge = toAge(1);
