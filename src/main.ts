@@ -12,26 +12,38 @@ interface Cat {
   age: Age;
   element: HTMLElement;
   sex: Sex;
-  top: number;
-  left: number;
   coolTime: number;
 }
-type Position = { top: number; left: number };
 
 const isContact = (a: number, b: number, range: number) =>
   a - range <= b && a + range >= b;
-const judge = (a: Position, b: Position) =>
-  isContact(a.top, b.top, 5) && isContact(a.left, b.left, 5);
+const judge = (a: { element: HTMLElement }, b: { element: HTMLElement }) => {
+  const offsetA = {
+    x: parseInt(a.element.style.left, 10),
+    y: parseInt(a.element.style.top, 10),
+  };
+  const offsetB = {
+    x: parseInt(b.element.style.left, 10),
+    y: parseInt(b.element.style.top, 10),
+  };
+  return (
+    isContact(offsetA.y, offsetB.y, 5) && isContact(offsetA.x, offsetB.x, 5)
+  );
+};
 const month = find("#month") as Element;
 const cloneCat = cache("#cat");
 let isNext = true;
+let id: NodeJS.Timeout | undefined;
 const createCat = (sex: Sex) => {
   const element = cloneCat();
   element.addEventListener("dragstart", () => {
     isNext = false;
   });
   element.addEventListener("dragend", (e) => {
-    isNext = true;
+    clearTimeout(id);
+    id = start(() => {
+      isNext = true;
+    }, 5 / Number(speed.value));
     const parent = (e.target as HTMLElement).parentElement;
     const { offsetHeight, offsetWidth } = parent ?? {
       offsetHeight: 0,
@@ -46,21 +58,17 @@ const createCat = (sex: Sex) => {
 };
 const adultAge = toAge(1);
 const lifespan = toAge(10);
-const main = (cats: Cat[]) => {
-  isNext ? update(cats) : next(cats);
-};
 const speed = find("#speed") as HTMLInputElement;
-const next = (cats: Cat[]) => start(() => main(cats), 5 / Number(speed.value));
-const update = (cats: Cat[]) => {
-  cats.forEach((cat) => {
-    cat.age = cat.age.increment();
-    if (adultAge.equal(cat.age)) cat.element.className = "adult";
-    if (cat.coolTime) cat.coolTime--;
-    cat.top = generate(100);
-    cat.left = generate(100);
-    cat.element.style.top = `${cat.top}%`;
-    cat.element.style.left = `${cat.left}%`;
-  });
+const main = (cats: Cat[]) => {
+  if (isNext) {
+    cats.forEach((cat) => {
+      cat.age = cat.age.increment();
+      if (adultAge.equal(cat.age)) cat.element.className = "adult";
+      if (cat.coolTime) cat.coolTime--;
+      cat.element.style.top = `${generate(100)}%`;
+      cat.element.style.left = `${generate(100)}%`;
+    });
+  }
   const aliveCats = cats.filter((cat) => !lifespan.equal(cat.age));
   const { females, males } = classifySex(aliveCats);
   const newCats = aliveCats.concat(
@@ -82,6 +90,6 @@ const update = (cats: Cat[]) => {
     newCats.map((cat) => cat.element),
   );
   month.innerHTML = String(Number(month.innerHTML) + 1);
-  next(newCats);
+  start(() => main(newCats), 5 / Number(speed.value));
 };
 main([true, true, false, false].map((value) => createCat(initialize(value))));
