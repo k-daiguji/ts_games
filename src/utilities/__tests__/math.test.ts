@@ -1,6 +1,6 @@
 import { test } from "vitest";
 
-import { roundUp } from "../math";
+import { clamp, roundUp } from "../math";
 
 test.for<[number, { quotient: number; remainder: number }]>([
   [0, { quotient: 0, remainder: 0 }],
@@ -15,3 +15,16 @@ test.for<[number, { quotient: number; remainder: number }]>([
     expect(actual).toStrictEqual(expected);
   },
 );
+
+test.for<[number, number]>([
+  [0, 1],
+  [1, 1],
+  [2, 2],
+  [99, 99],
+  [100, 100],
+  [101, 100],
+])("When input is %s, result is %s.", ([input, expected], { expect }) => {
+  const actual = clamp(input, 100, 1);
+
+  expect(actual).toStrictEqual(expected);
+});

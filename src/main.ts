@@ -4,6 +4,7 @@ import type { Sex } from "./sandbox/sex";
 import { classifySex, initialize } from "./sandbox/sex";
 import { range } from "./utilities/array";
 import { cache, find, overwrite } from "./utilities/dom";
+import { clamp } from "./utilities/math";
 import { generate } from "./utilities/random";
 import { start } from "./utilities/timer";
 
@@ -31,8 +32,15 @@ const createCat = (sex: Sex) => {
   });
   element.addEventListener("dragend", (e) => {
     isNext = true;
-    (e.target as HTMLElement).style.top = `${e.y - 72}px`;
-    (e.target as HTMLElement).style.left = `${e.x - 24}px`;
+    const parent = (e.target as HTMLElement).parentElement;
+    const { offsetHeight, offsetWidth } = parent ?? {
+      offsetHeight: 0,
+      offsetWidth: 0,
+    };
+    const top = clamp(((e.y - 72) / offsetHeight) * 100, 100, 0);
+    (e.target as HTMLElement).style.top = `${top}%`;
+    const left = clamp(((e.x - 24) / offsetWidth) * 100, 100, 0);
+    (e.target as HTMLElement).style.left = `${left}%`;
   });
   return { age: toAge(), element, sex, coolTime: 12, top: 0, left: 0 };
 };
