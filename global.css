@@ -29,6 +29,10 @@
   position: relative;
   height: calc(100% - 102px);
   width: calc(100% - 60px);
+
+  &:hover {
+    cursor: grab;
+  }
 }
 
 #cat * {
@@ -46,6 +50,10 @@
 
   &:not(.adult) {
     transform: scale(0.5);
+  }
+
+  &:active {
+    cursor: grabbing;
   }
 }
 
