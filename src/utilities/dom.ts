@@ -8,6 +8,9 @@ const clone = (element: Element | null) =>
 
 export const find = (key: string) => doc.querySelector(key);
 
+const cleanup = (parent: Element) => {
+  while (parent.firstChild) parent.removeChild(parent.firstChild);
+};
 const appendChildren = (parent: Element, children: Node[]) => {
   children.forEach((child) => {
     parent.appendChild(child);
@@ -17,9 +20,7 @@ const appendChildren = (parent: Element, children: Node[]) => {
 export const overwrite = (key: string, children: Node[]) => {
   const parent = find(key);
   if (parent) {
-    parent.childNodes.forEach((child) => {
-      parent.removeChild(child);
-    });
+    cleanup(parent);
     appendChildren(parent, children);
   }
 };

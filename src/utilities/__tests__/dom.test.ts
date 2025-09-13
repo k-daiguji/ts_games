@@ -17,18 +17,32 @@ test("Found element by ID.", ({ expect }) => {
   expect(actual).toStrictEqual(root);
 });
 
-test("Appended elements for ID.", ({ expect }) => {
-  const children = range(2, { start: 1 }).map((index) => {
-    const dummy = document.createElement("div");
-    dummy.id = `dummy${index}`;
-    return dummy;
+describe("Overwritten", () => {
+  test("Removed element.", ({ expect }) => {
+    range(2, { start: 1 }).forEach((index) => {
+      const dummy = document.createElement("div");
+      dummy.id = `dummy${index}`;
+      document.getElementById("root")?.appendChild(dummy);
+    });
+
+    overwrite("#root", []);
+
+    expect(document.body.innerHTML).toBe('<div id="root"></div>');
   });
 
-  overwrite("#root", children);
+  test("Appended element.", ({ expect }) => {
+    const children = range(2, { start: 1 }).map((index) => {
+      const dummy = document.createElement("div");
+      dummy.id = `dummy${index}`;
+      return dummy;
+    });
 
-  expect(document.body.innerHTML).toBe(
-    '<div id="root"><div id="dummy1"></div><div id="dummy2"></div></div>',
-  );
+    overwrite("#root", children);
+
+    expect(document.body.innerHTML).toBe(
+      '<div id="root"><div id="dummy1"></div><div id="dummy2"></div></div>',
+    );
+  });
 });
 
 describe("Cached", () => {
