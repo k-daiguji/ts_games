@@ -2,7 +2,7 @@ import type { Age } from "./sandbox/age";
 import { toAge } from "./sandbox/age";
 import type { Sex } from "./sandbox/sex";
 import { classifySex, initialize } from "./sandbox/sex";
-import { range } from "./utilities/array";
+import { loop, range } from "./utilities/array";
 import { cache, find, overwrite } from "./utilities/dom";
 import { clamp, generate } from "./utilities/math";
 import { start } from "./utilities/timer";
@@ -104,4 +104,4 @@ const main = (cats: Cat[]) => {
   month.innerHTML = String(Number(month.innerHTML) + 1);
   start(() => main(newCats), 5 / Number(speed.value));
 };
-main([true, true, false, false].map((value) => createCat(initialize(value))));
+main(loop(2, [true, false]).map((value) => createCat(initialize(value))));

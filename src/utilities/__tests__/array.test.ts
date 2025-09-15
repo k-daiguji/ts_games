@@ -1,6 +1,22 @@
 import { test } from "vitest";
 
-import { range } from "../array";
+import { loop, range } from "../array";
+
+test.for<[number, (boolean | number | string)[], unknown[]]>([
+  [1, [true, 1, "a"], [true]],
+  [2, [true, 1, "a"], [true, 1]],
+  [3, [true, 1, "a"], [true, 1, "a"]],
+  [4, [true, 1, "a"], [true, 1, "a", true]],
+  [5, [true, 1, "a"], [true, 1, "a", true, 1]],
+  [6, [true, 1, "a"], [true, 1, "a", true, 1, "a"]],
+])(
+  "When length is %s and values is [%s], result is [%s].",
+  ([length, values, expected], { expect }) => {
+    const actual = loop(length, values);
+
+    expect(actual).toStrictEqual(expected);
+  },
+);
 
 test.for<[number, { start?: number; step?: number } | undefined, number[]]>([
   [9, undefined, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]],
