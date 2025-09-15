@@ -1,11 +1,10 @@
+const toArray = (length: number, step = 1, offset = 0) =>
+  Array.from({ length }, (_, i) => i / (1 / step) + offset);
+
 export const range = (
   stop: number,
   option?: { start?: number; step?: number },
 ) => {
   const { start = 0, step = 1 } = option ?? { start: 0, step: 1 };
-  const inverseStep = 1 / step;
-  return Array.from(
-    { length: Math.ceil((stop - start + step) / step) },
-    (_, i) => (start * inverseStep + i) / inverseStep,
-  );
+  return toArray(Math.ceil((stop - start + step) / step), step, start);
 };
