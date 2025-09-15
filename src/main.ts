@@ -4,8 +4,7 @@ import type { Sex } from "./sandbox/sex";
 import { classifySex, initialize } from "./sandbox/sex";
 import { range } from "./utilities/array";
 import { cache, find, overwrite } from "./utilities/dom";
-import { clamp } from "./utilities/math";
-import { generate } from "./utilities/random";
+import { clamp, generate } from "./utilities/math";
 import { start } from "./utilities/timer";
 
 interface Cat {
